@@ -553,6 +553,12 @@ namespace System
 
         public static string Join(string? separator, string?[] value, int startIndex, int count) =>
             JoinCore(separator.AsSpan(), value, startIndex, count);
+            
+        public static string Join(char separator, ReadOnlySpan<string?> values) =>
+            JoinCore(MemoryMarshal.CreateReadOnlySpan(ref separator, 1), values);
+
+        public static string Join(string? separator, ReadOnlySpan<string?> values) =>
+            JoinCore(separator.AsSpan(), values);
 
         private static string JoinCore(ReadOnlySpan<char> separator, string?[] value, int startIndex, int count)
         {
